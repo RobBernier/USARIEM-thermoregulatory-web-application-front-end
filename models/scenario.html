@@ -1,0 +1,183 @@
+<div id='InputField' class='content-box model no-print'>
+    <h2>SCENARIO MODEL:</h2>
+    <fieldset>
+        <div id='frames-container' class='table-container'>
+            <button class='one-time-values-button dropdown-container' onclick='displayContents(this);'>INITIAL VALUES</button>
+            <div class='dropdown-contents lining'>
+                <div class='table-item'>Initial Core Temp<div class='tempSymbol'></div><br/>
+                    <input type='number' value='37.1' name='input' id='init-core-temp' onchange='validationTemperature(33, 38, 82.4, 113, this);'>
+                    <input type='range' id='slider-input-init-core-temp' name='slider' min='33' max='38' value='36' onchange='validationTemperature(33, 38, 82.4, 113, this);'>
+                    <p class='error-message'></p>
+                </div>
+                <div class='table-item'>Acclimation<br/>
+                    <select id='accl'>
+                        <option name='none' value='2'>Full Acclimation (2.0)</option>
+                        <option name='none' value='1'>Partial Acclimation (1.0)</option>
+                        <option name='none' value='0'>No Acclimation (0.0)</option>
+                    </select>
+                </div>
+                <div class='table-item'>Body Fat (%)<br/>
+                    <input type='number' id='pfat' name='input' value='15' onchange='validationNonTemperature(1, 30, this, "Body fat", "percent");'>
+                    <input type='range' name='slider' min='1' max='30' value='15' onchange='validationNonTemperature(1, 30, this, "Body fat", "percent");'>
+                    <p class='error-message'></p>
+                </div>
+                <div style='border: 1px solid #888;'>
+                    <div class='table-item'>Height (cm)<br/>
+                        <input type='number' id='height' name='input' min='120' max='215' value='177.8' onchange='validationNonTemperature(120, 215, this, "Height", "cm");checkMinMetabolicRate(document.getElementById("weight").value, this.value, document.getElementById("age").value);'>
+                        <input type='range' name='slider' min='120' max='215' value='177.8' onchange='validationNonTemperature(120, 215, this, "Height", "cm");checkMinMetabolicRate(document.getElementById("weight").value, this.value, document.getElementById("age").value);'>
+                        <p class='error-message'></p>
+                    </div>
+                    <div class='table-item'>Weight (kg)<br/>
+                        <input type='number' id='weight' name='input' min='25' max='136' value='67.58' onchange='validationNonTemperature(25, 136, this, "Weight", "kg");checkMinMetabolicRate(this.value, document.getElementById("height").value, document.getElementById("age").value);'>
+                        <input type='range' name='slider' min='25' max='136' value='67.58' onchange='validationNonTemperature(25, 136, this, "Weight", "kg");checkMinMetabolicRate(this.value, document.getElementById("height").value, document.getElementById("age").value);'>
+                        <p class='error-message'></p>
+                    </div>
+                    <div class='table-item'>Age<br/>
+                        <input type='number' id='age' name='input' min='16' max='70' value='24' onchange='validationNonTemperature(16, 70, this, "Age", "years");checkMinMetabolicRate(document.getElementById("weight").value, document.getElementById("height").value, this.value);'>
+                        <input type='range' name='slider' min='16' max='70' value='24' onchange='validationNonTemperature(16, 70, this, "Age", "years");checkMinMetabolicRate(document.getElementById("weight").value, document.getElementById("height").value, this.value);'>
+                        <p class='error-message'></p>
+                    </div>
+                    <p style="display:inline-block; color: green; font-size: .6em; width:100%;">ALERT: Changes to the above values will alter minimum metabolic rate.</p>    
+                </div>
+                <!--Initial values before first step-->
+                <div class='dropdown-contents' style='display:block;'>
+                    <button class='activity-button' onclick='displayContents(this);'>ACTIVITY</button>
+                    <div class='dropdown-contents lining'>
+                        <div class='selection-field'>
+                            <div>
+                                <div class='work-rate-input'>
+                                    <div style='border: 1px solid #888;'>
+                                        <button style='display:inline-block; width:30%; background-color: #f0aa1e;' value='selected' class='pandolf-button' onclick='pandolfMetabolicDisplay(this);'>Pandolf</button>
+                                        <p style='display:inline-block;'>-or-</p>
+                                        <button style='display:inline-block; width:30%;' class='metabolic-button' onclick='pandolfMetabolicDisplay(this);checkMinMetabolicRate(document.getElementById("weight").value, document.getElementById("height").value, document.getElementById("age").value);'>Metabolic</button>
+                                        <div class="pandolf-div"><!--pandolf div-->
+                                            <div class='table-item'>Grade (%)<br/>
+                                                <input type='number' class='grade' value='0' name='input' onchange='validationNonTemperature(0, 15, this, "Grade", "units");'>
+                                                <input type='range' class='grade-slider' name='slider' min='0' max='15' value='0' onchange='validationNonTemperature(0, 15, this, "Grade", "percent");'>
+                                                <p class='error-message'></p>
+                                            </div>
+                                            <div class='table-item'>Terrain<br/>
+                                                <select class='terrain'>
+                                                    <option name='black top' value='1' selected>Black Top</option>
+                                                    <option name='dirt road' value='1.1'>Dirt Road</option>
+                                                    <option name='light brush' value='1.2'>Light Brush</option>
+                                                    <option name='heavy brush' value='1.5'>Heavy Brush</option>
+                                                    <option name='packed snow' value='1.6'>Packed Snow</option>
+                                                    <option name='marsh' value='1.8'>Marsh</option>
+                                                    <option name='sand' value='2.1'>Sand</option>
+                                                </select>
+                                            </div>
+                                            <div class='table-item'>Load (kg)<br/>
+                                                <input type='number' class='load' value='10' name='input' onchange='validationNonTemperature(0, 75, this, "Load", "kg");'>
+                                                <input type='range' class='load-slider' name='slider' min='0' max='75' value='10' onchange='validationNonTemperature(0, 75, this, "Load", "kg");'>
+                                                <p class='error-message'></p>
+                                            </div>
+                                        </div>
+                                        <div class="metabolic-div" style='display:none;'><!--metabolic div-->
+                                            <div class='table-item'>Metabolic Rate (watts)<br/>
+                                                <input type='number' class='metabolic' value='150' name='input' onchange='validationNonTemperature(32, 1500, this, "Metabolic Rate", "watts");'>
+                                                <input type='range' class='metabolic-slider' name='slider' min='32' max='1500' value='32' onchange='validationNonTemperature(32, 1500, this, "Metabolic Rate", "watts");'>
+                                                <p class='error-message'></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class='table-item'>Speed (km/h)<br/>
+                                        <input type='number' class='speed' name='input' value='5'  onchange='validationNonTemperature(1, 10, this, "Speed", "km/h");'>
+                                        <input type='range' name='slider' min='1' max='10' value='5' onchange='validationNonTemperature(1, 10, this, "Speed", "km/h");'>
+                                        <p class='error-message'></p>
+                                        <p style='color: green; font-size:.6em;'>ALERT: Movement speed required to estimate total airflow.</p>
+                                    </div>
+                                    <div class='table-item'>Hydration (ml/min)<br/>
+                                        <input type='number' class='hydr' name='input' value='8.33333'  onchange='validationNonTemperature(0, 8.33333, this, "Hydration", "ml/min");'>
+                                        <input type='range' name='slider' min='0' max='8.0' value='8.0' onchange='validationNonTemperature(0, 8.33333, this, "Hydration", "ml/min");'>
+                                        <p class='error-message'></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class='environment-button' onclick='displayContents(this);'>ENVIRONMENT</button>
+                    <div class='dropdown-contents lining'>
+                        <div class='table-item'>Air Temperature<div class='tempSymbol'>(C)</div><br/>
+                            <input type='number' class='air-temp' value='22' name='input' onchange='validationTemperature(-2.000000000000001, 50, 28.4, 122, this);'>
+                            <input type='range' class='air-temp-slider' name='slider' min='-2' max='50' value='22' onchange='validationTemperature(-2.000000000000001, 50, 28.4, 122, this);'>
+                            <p class='error-message'></p>
+                        </div>
+                        <div class='table-item'>Relative Humidity(%)<br/>
+                            <input type='number' class='rel-hum' name='input' value='50' onchange='validationNonTemperature(0, 100, this, "Relative Humidity", "percent");'>
+                            <input type='range' name='slider' min='0' max='100' value='50' onchange='validationNonTemperature(0, 100, this, "Relative Humidity", "percent");'>
+                            <p class='error-message'></p>
+                        </div>
+                        <div class='table-item'>Wind Speed<br/>
+                            <select class='ws'>
+                                <option name='calm' value='0.5'>calm</option>
+                                <option name='zephyr' value='1'>zephyr (1.0)</option>
+                                <option name='gentle' value='2.0'>gentle</option>
+                                <option name='breezy' value='3.0'>breezy</option>
+                                <option name='windy' value='5.5'>windy</option>
+                            </select>
+                        </div>
+                        <div class='table-item'>Black Globe Temperature(bgt)<br/>Air temperature + bgt(C)<br/>
+                            <input type='number' class='bgt' value='5' name='input' onchange='validationNonTemperature(0, 10, this, "Black Globe temperature", "degrees F or C");'>
+                            <input type='range' class='bgt-slider' name='slider' min='0' max='10' value='5' onchange='validationNonTemperature(0, 10, this, "Black Globe temperature", "degrees F or C");'>
+                            <p class='error-message'></p>
+                        </div>
+                    </div>
+                    <button class='clothing-button' onclick='displayContents(this);'>CLOTHING</button>
+                    <div class='dropdown-contents lining'>
+                        <select class='cloth' style='width:250px; margin:20px;'>
+                            <option value='1'>MOPP Level 0 - BDU</option>
+                            <option value='2'>MOPP Level 1 - BDO [open] over BDU</option>
+                            <option value='3'>MOPP Level 2 - BDO [open] over BDU + boots</option>
+                            <option value='4'>MOPP Level 3 - BDO [open] over BDU + boots + mask + hood</option>
+                            <option value='5'>MOPP Level 4 - BDO [closed] over BDU + boots + mask + hood + gloves</option>
+                            <option value='6'>Nude  (SHORTS + T-SHIRT)</option>
+                            <option value='7'>BDU temperate woodland [open]</option>
+                            <option value='8'>BDU temperate woodland [closed]</option>
+                            <option value='9'>BDU hot weather woodland</option>
+                            <option value='10'>Desert Battledress (DBDU) [open]</option>
+                            <option value='11'>Desert Battledress (DBDU) [closed]</option>
+                            <option value='12'>DBDU + flak vest [open]</option>
+                            <option value='13'>DBDU + flak vest [closed]</option>
+                            <option value='14'>Woodland BDO with DBDU [open]</option>
+                            <option value='15'>Woodland BDO with DBDU [closed]"</option>
+                            <option value='16'>Battledress Overgarment (BDO) [closed]</option>
+                            <option value='17'>Battledress Overgarment (BDO) [open] [zipped]</option>
+                            <option value='18'>Battledress Overgarment (BDO) [open] [unzipped]</option>
+                            <option value='19'>BDO + WBDU + flak vest [closed] impermable hood</option>
+                            <option value='20'>Combat Vehicle Crewman (CVC) alone [open]</option>
+                            <option value='21'>Combat Vehicle Crewman (CVC) alone [closed]</option>
+                            <option value='22'>Saratoga Overgarment {USMC} [open]</option>
+                            <option value='23'>Saratoga Overgarment {USMC} [closed]</option>
+                            <option value='24'>Saratoga Overgarment with DBDU {USMC} [open]</option>
+                            <option value='25'>Saratoga Overgarment with DBDU {USMC} [closed]</option>
+                            <option value='26'>Air Force Flight Suite alone [open]</option>
+                            <option value='27'>Air Force Flight Suite alone [closed]</option>
+                            <option value='28'>Air Force PBI Saratogo Suite alone [open]</option>
+                            <option value='29'>Air Force PBI Saratogo Suite alone [closed]</option>
+                            <option value='30'>ECWCS complete system</option>
+                            <option value='31'>BDU wet weather + parka + trousers [open]</option>
+                            <option value='32'>Desert BDU (DBDU) wet + parka + trousers [open]</option>
+                            <option value='33'>AirCrew WBDU 2-piece alone [open]</option>
+                            <option value='34'>AirCrew WBDU 2-piece alone [closed]</option>
+                            <option value='35'>Fuel Handlers (TAP) {HP41}</option>
+                        </select>
+                    </div>
+                    <br/>
+                </div>
+            </div>
+            <div style='margin-bottom:20px'></div><!--USED TO ADD SPACE BETWEEN ONE TIME BUTTON AND STEPS-->
+        </div>
+        <a id='anchor'></a>
+        <a href='#anchor'><button class='add-step' onclick='addStep();'>+ ADD STEP EVENT</button></a>
+        <p id='submit-error' class='error-message'></p>
+        <button id='submit' onclick='passValueScenario();'>SUBMIT</button>
+    </fieldset>
+</div>
+<div class='content-box response-box output'>
+    <h2>RESULTS:</h2>
+    <div id='ServerResponse'>
+        <p style='font-size: .8em; margin-top: 10vh;'>No results to display currently.<br/>Please click the "SUBMIT" button to send data to model.</p>
+    </div>
+</div>
+

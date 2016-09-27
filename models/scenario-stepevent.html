@@ -1,0 +1,125 @@
+<div class='frame dropdown-container'>
+    <button class='delete-step-button' onclick='deleteStep(this);'>X</button><div class='duration-container'><p style='font-size:.59em; margin:0;'>Minutes</p><input class='duration' type='number' min='1' value='1'/></div><button class='step-button' onclick='displayContents(this);'>STEP EVENT</button>
+    <div class='dropdown-contents'>
+        <button class='activity-button' onclick='displayContents(this);'>ACTIVITY</button>
+        <div class='dropdown-contents lining'>
+            <div class='selection-field'>
+                <div>
+                    <div class='work-rate-input'>
+                        <div style='border: 1px solid #c0c0c0;'>
+                            <div class="pandolf-div"><!--pandolf div-->
+                                <div class='table-item'>Grade (%)<br/>
+                                    <input type='number' class='grade' value='0' name='input' onchange='validationNonTemperature(-15, 15, this, "Grade", "units");'>
+                                    <input type='range' class='grade-slider' name='slider' min='-15' max='15' value='0' onchange='validationNonTemperature(-15, 15, this, "Grade", "percent");'>
+                                    <p class='error-message'></p>
+                                </div>
+                                <div class='table-item'>Terrain<br/>
+                                    <select class='terrain'>
+                                        <option name='black top' value='1' selected>Black Top</option>
+                                        <option name='dirt road' value='1.1'>Dirt Road</option>
+                                        <option name='light brush' value='1.2'>Light Brush</option>
+                                        <option name='heavy brush' value='1.5'>Heavy Brush</option>
+                                        <option name='packed snow' value='1.6'>Packed Snow</option>
+                                        <option name='marsh' value='1.8'>Marsh</option>
+                                        <option name='sand' value='2.1'>Sand</option>
+                                    </select>
+                                </div>
+                                <div class='table-item'>Load (kg)<br/>
+                                    <input type='number' class='load' value='10' name='input' onchange='validationNonTemperature(0, 75, this, "Load", "kg");'>
+                                    <input type='range' class='load-slider' name='slider' min='0' max='75' value='10' onchange='validationNonTemperature(0, 75, this, "Load", "kg");'>
+                                    <p class='error-message'></p>
+                                </div>
+                            </div>
+                            <div class="metabolic-div" style='display:none;'><!--metabolic div-->
+                                <div class='table-item'>Metabolic Rate (watts)<br/>
+                                    <input type='number' class='metabolic' value='150' name='input' onchange='validationNonTemperature(32, 1500, this, "Metabolic Rate", "watts");'>
+                                    <input type='range' class='metabolic-slider' name='slider' min='32' max='1500' value='32' onchange='validationNonTemperature(32, 1500, this, "Metabolic Rate", "watts");'>
+                                    <p class='error-message'></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='table-item'>Speed (km/h)<br/>
+                            <input type='number' class='speed' name='input' value='5'  onchange='validationNonTemperature(1, 10, this, "Speed", "km/h");'>
+                            <input type='range' name='slider' min='1' max='10' value='5' onchange='validationNonTemperature(1, 10, this, "Speed", "km/h");'>
+                            <p class='error-message'></p>
+                            <p style='color: green; font-size:.6em;'>movement speed required to estimate total airflow</p>
+                        </div>
+                        <div class='table-item'>Hydration (ml/min)<br/>
+                            <input type='number' class='hydr' name='input' value='8.33333'  onchange='validationNonTemperature(0, 8.33333, this, "Hydration", "ml/min");'>
+                            <input type='range' name='slider' min='0' max='8.0' value='8.0' onchange='validationNonTemperature(0, 8.33333, this, "Hydration", "ml/min");'>
+                            <p class='error-message'></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class='environment-button' onclick='displayContents(this);'>ENVIRONMENT</button>
+        <div class='dropdown-contents lining'>
+            <div class='table-item'>Air Temperature<div class='tempSymbol'>(C)</div><br/>
+                <input type='number' class='air-temp' value='22' name='input' onchange='validationTemperature(-2.000000000000001, 50, 28.4, 122, this);'>
+                <input type='range' class='air-temp-slider' name='slider' min='-2' max='50' value='22' onchange='validationTemperature(-2.000000000000001, 50, 28.4, 122, this);'>
+                <p class='error-message'></p>
+            </div>
+            <div class='table-item'>Relative Humidity(%)<br/>
+                <input type='number' class='rel-hum' name='input' value='50' onchange='validationNonTemperature(0, 100, this, "Relative Humidity", "percent");'>
+                <input type='range' name='slider' min='0' max='100' value='50' onchange='validationNonTemperature(0, 100, this, "Relative Humidity", "percent");'>
+                <p class='error-message'></p>
+            </div>
+            <div class='table-item'>Wind Speed<br/>
+                <select class='ws'>
+                    <option name='calm' value='0.5'>calm</option>
+                    <option name='zephyr' value='1'>zephyr (1.0)</option>
+                    <option name='gentle' value='2.0'>gentle</option>
+                    <option name='breezy' value='3.0'>breezy</option>
+                    <option name='windy' value='5.5'>windy</option>
+                </select>
+            </div>
+            <div class='table-item'>Black Globe Temperature(bgt)<br/>Air temperature + bgt(C)<br/>
+                <input type='number' class='bgt' value='5' name='input' onchange='validationNonTemperature(0, 10, this, "Black Globe temperature", "degrees F or C");'>
+                <input type='range' class='bgt-slider' name='slider' min='0' max='10' value='5' onchange='validationNonTemperature(0, 10, this, "Black Globe temperature", "degrees F or C");'>
+                <p class='error-message'></p>
+            </div>
+        </div>
+        <button class='clothing-button' onclick='displayContents(this);'>CLOTHING</button>
+        <div class='dropdown-contents lining'>
+            <select class='cloth' style='width:250px; margin:20px;'>
+                <option value='1'>MOPP Level 0 - BDU</option>
+                <option value='2'>MOPP Level 1 - BDO [open] over BDU</option>
+                <option value='3'>MOPP Level 2 - BDO [open] over BDU + boots</option>
+                <option value='4'>MOPP Level 3 - BDO [open] over BDU + boots + mask + hood</option>
+                <option value='5'>MOPP Level 4 - BDO [closed] over BDU + boots + mask + hood + gloves</option>
+                <option value='6'>Nude  (SHORTS + T-SHIRT)</option>
+                <option value='7'>BDU temperate woodland [open]</option>
+                <option value='8'>BDU temperate woodland [closed]</option>
+                <option value='9'>BDU hot weather woodland</option>
+                <option value='10'>Desert Battledress (DBDU) [open]</option>
+                <option value='11'>Desert Battledress (DBDU) [closed]</option>
+                <option value='12'>DBDU + flak vest [open]</option>
+                <option value='13'>DBDU + flak vest [closed]</option>
+                <option value='14'>Woodland BDO with DBDU [open]</option>
+                <option value='15'>Woodland BDO with DBDU [closed]"</option>
+                <option value='16'>Battledress Overgarment (BDO) [closed]</option>
+                <option value='17'>Battledress Overgarment (BDO) [open] [zipped]</option>
+                <option value='18'>Battledress Overgarment (BDO) [open] [unzipped]</option>
+                <option value='19'>BDO + WBDU + flak vest [closed] impermable hood</option>
+                <option value='20'>Combat Vehicle Crewman (CVC) alone [open]</option>
+                <option value='21'>Combat Vehicle Crewman (CVC) alone [closed]</option>
+                <option value='22'>Saratoga Overgarment {USMC} [open]</option>
+                <option value='23'>Saratoga Overgarment {USMC} [closed]</option>
+                <option value='24'>Saratoga Overgarment with DBDU {USMC} [open]</option>
+                <option value='25'>Saratoga Overgarment with DBDU {USMC} [closed]</option>
+                <option value='26'>Air Force Flight Suite alone [open]</option>
+                <option value='27'>Air Force Flight Suite alone [closed]</option>
+                <option value='28'>Air Force PBI Saratogo Suite alone [open]</option>
+                <option value='29'>Air Force PBI Saratogo Suite alone [closed]</option>
+                <option value='30'>ECWCS complete system</option>
+                <option value='31'>BDU wet weather + parka + trousers [open]</option>
+                <option value='32'>Desert BDU (DBDU) wet + parka + trousers [open]</option>
+                <option value='33'>AirCrew WBDU 2-piece alone [open]</option>
+                <option value='34'>AirCrew WBDU 2-piece alone [closed]</option>
+                <option value='35'>Fuel Handlers (TAP) {HP41}</option>
+            </select>
+        </div>
+        <br/>
+    </div>
+</div>

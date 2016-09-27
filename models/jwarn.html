@@ -1,0 +1,67 @@
+<div class='content-box model'>
+    <h2>JWARN MODEL:</h2>
+    <fieldset>
+    <div class='table-container'>
+        <div class='table-item'>Air Temperature<div class='tempSymbol'></div><br/>
+            <input type='number' value='30' name='input' id='air-temp' onchange='validationTemperature(-2.000000000000001, 55, 28.4, 131, this);'>
+            <input type='range' name='slider' min='-2' max='55' value='30' onchange='validationTemperature(-2.000000000000001, 55, 28.4, 131, this);'>
+            <p class='error-message'></p>
+        </div>
+        <div class='table-item'>Relative Humidity(%)<br/>
+            <input type='number' name='input' id='rel-hum' value='50' onchange='validationNonTemperature(0, 100, this, "Relative Humidity", "percent");'>
+            <input type='range' name='slider' min='0' max='100' value='50' onchange='validationNonTemperature(0, 100, this, "Relative Humidity", "percent");'>
+            <p class='error-message'></p>
+        </div>
+        <div class='table-item'>Wind Speed<br/>
+            <select id='ws'>
+                <option name='calm' value='0.5'>calm</option>
+                <option name='zephyr' value='1'>zephyr (1.0)</option>
+                <option name='gentle' value='2.0'>gentle</option>
+                <option name='breezy' value='3.0'>breezy</option>
+                <option name='windy' value='5.5'>windy</option>
+            </select>
+        </div>
+        <div class='table-item'>Solar Load<br/>
+            <select id='sun'>
+                <option name='sunny' value='50'>Sunny</option>
+                <option name='cloudy' value='30'>Cloudy</option>
+                <option name='sunny' value='0'>Night</option>
+            </select>
+        </div>
+        <div class='table-item'>Altitude above sea level (m)<br/>
+            <input type='number' id='alt' name='input' value='0.0' min='0.0' max='21000' onchange='validationNonTemperature(0, 21000, this, "Altitude above sea level", "meters");'><br/>
+            <p class='error-message'></p>
+        </div>
+        <div class='table-item'>Work Rate<br/>
+            <input type='number' id='wrk-rate' name='input' value='400' onchange='validationNonTemperature(0, 1000, this, "Work Rate", "units");'><br/>
+            <p class='error-message'></p>
+        </div>
+        <div class='table-item'>Acclimation<br/>
+            <select id='accl'>
+                <option name='default' value='0'>Acclimated</option>
+            </select>
+        </div>
+        <div class='table-item'>Hydration<br/>
+            <select id='hydr'>
+                <option name='default' value='35'>Default (35.0)</option>
+            </select>
+        </div>
+        <div class='table-item'>Height (cm)<br/>
+            <input type='number' name='input' min='120' max='215' value='177.8' id='height' onchange='validationNonTemperature(120, 215, this, "Height", "cm");'>
+            <input type='range'  name='slider' min='120' max='215' value='177.8' onchange='validationNonTemperature(120, 215, this, "Height", "cm");'>
+            <p class='error-message'></p>
+        </div>
+        <div class='table-item'>Weight (kg)<br/>
+            <input type='number'  name='input' min='25' max='136' value='67.58' id='weight' onchange='validationNonTemperature(25, 136, this, "Weight", "kg");'>
+            <input type='range'   name='slider' min='25' max='136' value='67.58' onchange='validationNonTemperature(25, 136, this, "Weight", "kg");'>
+            <p class='error-message'></p>
+        </div>
+        <button onclick='passValueJWARN();' id='submit'>SUBMIT</button>
+    </div>
+    </fieldset>
+</div>
+<div class='content-box response-box output'>
+    <h2>RESULTS:</h2>
+    <div id='ServerResponse'>
+    </div>
+</div>
